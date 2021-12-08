@@ -89,7 +89,7 @@
                                           <Label fx:id="errorNomEntreprise" layoutX="482.0" layoutY="88.0" textFill="RED" />
                                           <Label fx:id="errorPrenomClient" layoutX="216.0" layoutY="144.0" textFill="RED" />
                                           <Label fx:id="errorNomClient" layoutX="482.0" layoutY="144.0" textFill="RED" />
-                                          <Label fx:id="errorTelephone" layoutX="216.0" layoutY="202.0" textFill="RED">
+                                          <Label fx:id="errorTelephone" layoutX="216.0" layoutY="195.0" textFill="RED">
                                              <font>
                                                 <Font size="10.0" />
                                              </font>
@@ -116,7 +116,8 @@
                                           <TextField fx:id="email" layoutX="482.0" layoutY="279.0" promptText="Email" />
                                           <Label fx:id="verifChamps" layoutX="357.0" layoutY="317.0" prefHeight="17.0" prefWidth="184.0" textFill="RED" />
                                           <TextArea fx:id="adresse" layoutX="216.0" layoutY="223.0" prefHeight="38.0" prefWidth="148.0" promptText="Adresse" />
-                                          <ChoiceBox fx:id="choisePhone" layoutX="357.0" layoutY="313.0" prefWidth="150.0" />
+                                          <ChoiceBox fx:id="choisePhone" layoutX="365.0" layoutY="172.0" prefHeight="25.0" prefWidth="53.0" />
+                                          <Label fx:id="errorEmail" layoutX="485.0" layoutY="309.0" textFill="RED" />
                                        </children>
                                     </AnchorPane>
                                     <Text fill="#835df0" layoutX="344.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Nouveau client">
@@ -133,7 +134,7 @@
                                     <Label layoutX="498.0" layoutY="106.0" text="*Nom de Client :" />
                                     <TextField fx:id="nomClient" layoutX="498.0" layoutY="127.0" promptText="Nom" />
                                     <Label layoutX="232.0" layoutY="160.0" text="*Téléphone  :" />
-                                    <TextField fx:id="telephone" layoutX="231.0" layoutY="182.0" promptText="+ 212" />
+                                    <TextField fx:id="telephone" layoutX="231.0" layoutY="182.0" promptText="Phone" />
                                     <Label layoutX="232.0" layoutY="216.0" text="*Adresse  :" />
                                     <Label layoutX="233.0" layoutY="271.0" text="*Date debut travail  :" />
                                     <DatePicker fx:id="dateDebutTravail" layoutX="233.0" layoutY="291.0" prefHeight="25.0" prefWidth="149.0" promptText="Date de début" />

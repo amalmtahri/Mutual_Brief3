@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -73,11 +74,13 @@ public class RegisterController implements Initializable {
 	@FXML
 	private TextField email;
 	@FXML
+	private Label errorEmail;
+	@FXML
 	private DatePicker dateDebutTravail;
 	@FXML
 	private Label verifChamps;
 	@FXML
-	private ChoiceBox<String> choisePhone = new ChoiceBox<>();
+	private ChoiceBox<String> choisePhone ;
 	
 	@FXML
 	private TableColumn<Client, String> badge;
@@ -135,7 +138,15 @@ public class RegisterController implements Initializable {
 	}
 	@FXML
 	public void registerButton(ActionEvent event) {
+		errorCIN.setText("");
+		errorNomClient.setText("");
+		errorNomEntreprise.setText("");
+		errorNumeroBadge.setText("");
+		errorPrenomClient.setText("");
+		errorTelephone.setText("");
+		errorEmail.setText("");
 		verifChamps.setText("");
+		
 		int compErr=0;
 		if(numeroBadge.getText().isBlank() == true || nomEntreprise.getText().isBlank() == true || prenomClient.getText().isBlank() == true || nomClient.getText().isBlank() == true || telephone.getText().isBlank() == true || cin.getText().isBlank() == true || adresse.getText().isBlank() == true || email.getText().isBlank() == true || dateDebutTravail.getValue().toString().isBlank() == true) {
 			verifChamps.setText("Svp remplire tous les champs");
@@ -174,13 +185,16 @@ public class RegisterController implements Initializable {
 			compErr++;
 			errorNomClient.setText("max 10");
 		}
-		if(telephone.getText().length() <= 10) {
+		if(telephone.getText().length() <= 9) {
 			System.out.println("done");
-			
 		}
 		else {
 			compErr++;
 			errorTelephone.setText("max 10");
+		}
+		if(!telephone.getText().matches("[0-9]{4}")) {
+			compErr++;
+			errorTelephone.setText("svp enter des nombres");
 		}
 		if(filledCin && cin.getText().length() > 8) {
             compErr++;
@@ -196,6 +210,10 @@ public class RegisterController implements Initializable {
             compErr++;
             errorCIN.setText("the Passport must be 2 numbers and 7 L");
         }
+        if(!email.getText().matches("^(.+)@(.+)$")) {
+            compErr++;
+        	errorEmail.setText("format invalide");
+        }
 
 		if(compErr==0)
 		dataClient();
@@ -203,7 +221,7 @@ public class RegisterController implements Initializable {
 	}
 	
 	public void dataClient() {
-		clientList.add(new Client(prenomClient.getText(),nomClient.getText(),email.getText(),telephone.getText(),adresse.getText(),cin.getText(),numeroBadge.getText(),nomEntreprise.getText(),dateDebutTravail.getValue().toString(),filledCin));
+		clientList.add(new Client(prenomClient.getText(),nomClient.getText(),email.getText(),(choisePhone.getValue() + telephone.getText()),adresse.getText(),cin.getText(),numeroBadge.getText(),nomEntreprise.getText(),dateDebutTravail.getValue().toString(),filledCin));
 		System.out.println(clientList);
 		data = FXCollections.<Client>observableArrayList(clientList);
 		emptyChamp();
@@ -225,6 +243,8 @@ public class RegisterController implements Initializable {
 		errorNumeroBadge.setText("");
 		errorPrenomClient.setText("");
 		errorTelephone.setText("");
+		errorEmail.setText("");
+		verifChamps.setText("");
 		
 		remplireTable();
 	}
@@ -244,24 +264,29 @@ public class RegisterController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		 ObjectMapper objectMapper = new ObjectMapper();
-         try {
-               InputStream inputStream = new FileInputStream(new File("C:\\Users\\adm\\Desktop\\brief3\\src\\main\\java\\com\\example\\brief3\\data2.json"));
-               TypeReference<List<DialCode>> typeReference = new TypeReference<List<DialCode>>() {};
-               List<DialCode> choiseTele = objectMapper.readValue(inputStream, typeReference);
-               ObservableList<String> data2 = FXCollections.observableArrayList(choiseTele.toString());
-               choisePhone.setItems(data2);
-               choisePhone.setValue("dial_code");
-              
-               
-           }catch(FileNotFoundException e) {
-               e.printStackTrace();
-           } catch (IOException e) {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
-           }
-
 		
+		 JSONParser jsonParser = new JSONParser();
+         try (FileReader reader = new FileReader("C:\\Users\\adm\\Desktop\\brief3\\src\\main\\java\\com\\example\\brief3\\data2.json"))
+         {
+             Object obj = jsonParser.parse(reader);
+
+             JSONArray numbrePhone = (JSONArray) obj;
+             System.out.println(numbrePhone);
+             for (Object object : numbrePhone) {
+            	 JSONObject o = (JSONObject) object;
+            	 choisePhone.getItems().add((String)o.get("dial_code"));
+			}
+
+         } catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
