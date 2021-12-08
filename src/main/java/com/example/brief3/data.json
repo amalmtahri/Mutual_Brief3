@@ -1,0 +1,29 @@
+[
+  {
+    "firstname": "Ahmed",
+    "lastname": "Mohammed",
+    "cin": "HH112233",
+    "phone" : "+212611221122",
+    "email" : "yc.a.mohammed@gmail.com",
+    "password" : "1230321",
+    "entity" : "OMFAM"
+  },
+  {
+    "firstname": "Kamal",
+    "lastname": "Bouhfid",
+    "cin": "HH554433",
+    "phone" : "+212633111122",
+    "email" : "yc.a.kamal@gmail.com",
+    "password" : "0000001",
+    "entity" : "MGEN"
+  },
+  {
+    "firstname": "Imane",
+    "lastname": "Alaoui",
+    "cin": "HH778899",
+    "phone" : "+212699991111",
+    "email" : "yc.a.imane@gmail.com",
+    "password" : "22339900",
+    "entity" : "MAMT"
+  }
+]
